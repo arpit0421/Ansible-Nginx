@@ -1,0 +1,35 @@
+---
+- name: NGINX static webpage
+  hosts: localhost
+  connection: local
+
+  tasks: 
+
+  - name: Install NGINX
+    homebrew:
+      name: nginx
+      state: latest
+
+  - name: Copy custom html
+    copy:
+      src: index.html
+      dest: /opt/homebrew/Cellar/nginx/1.23.1/html/index.html
+
+  - name: start nginx
+    command: "brew services restart nginx"
+
+  # - name: start nginx
+  #   file:
+  #     path: /etc/nginx/sites-enabled/default
+  #     state: absent
+  #   notify: Restart nginx
+
+  # handlers:
+  #   - name: Restart nginx
+  #     ansible.builtin.service:
+  #       name: nginx
+  #       state: restarted
+
+
+  
+  
